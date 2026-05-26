@@ -1,19 +1,22 @@
 class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        count = {}
-        freq = [[] for i in range(len(nums)+1)]
 
-        for num in nums:
-            count[num] = 1 + count.get(num,0)
-        
-        for num, cnt in count.items():
-            freq[cnt].append(num)
-        
+    def encode(self, strs: List[str]) -> str:
+        res = ""
+        for s in strs:
+            res += str(len(s)) + "#" + s
+        print(res)
+        return res
+
+    def decode(self, s: str) -> List[str]:
         res = []
-        for i in range(len(freq) -1, 0, -1):
-            for num in freq[i]:
-                res.append(num)
-                if len(res) == k:
-                    return res
+        i = 0
 
-        
+        while i < len(s):
+            j = i          
+            while s[j] != "#":
+                j +=1
+            length = s[i:j]            
+            res.append(s[j+1 : j + 1 + int(length)])
+            i = j + 1 + int(length)
+            
+        return res
